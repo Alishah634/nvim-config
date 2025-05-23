@@ -12,3 +12,8 @@ manager.setup("pyright", {
     },
   },
 })
+
+require("mason").setup()
+require("mason-lspconfig").setup({ ensure_installed = { "pyright", "clangd" } })
+require("lspconfig").pyright.setup({})
+require("lspconfig").clangd.setup({})
