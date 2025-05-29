@@ -1,11 +1,13 @@
+-- ~/.config/nvim/lua/config/keymaps.lua
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
--- ~/.config/nvim/lua/config/keymaps.lua
+
 local map = vim.keymap.set
 local tb = require("telescope.builtin")
+local cmp = require("cmp")
 
--- Telescope
+-- ── Telescope ────────────────────────────────────────────────
 map("n", "<leader>ff", tb.find_files, { desc = "Find Files" })
 map("n", "<leader>fb", tb.buffers, { desc = "Open Buffers" })
 map("n", "<leader>fo", tb.oldfiles, { desc = "Recent Files" })
@@ -15,18 +17,19 @@ map("n", "<leader>fh", tb.help_tags, { desc = "Help Tags" })
 map("n", "<leader>fd", tb.lsp_definitions, { desc = "LSP Definitions" })
 map("n", "<leader>frf", tb.lsp_references, { desc = "LSP References" })
 
--- Coc.nvim Tab confirm vs literal Tab
+-- ── nvim-cmp Tab completion ──────────────────────────────────
 map("i", "<Tab>", function()
-  if vim.fn["coc#pum#visible"]() == 1 then
-    return vim.fn["coc#pum#confirm"]()
+  if cmp.visible() then
+    return cmp.select_next_item()
   else
-    return "\t"
+    return "<Tab>"
   end
 end, { expr = true, silent = true })
+
 map("i", "<S-Tab>", function()
-  if vim.fn["coc#pum#visible"]() == 1 then
-    return vim.fn["coc#pum#cancel"]()
+  if cmp.visible() then
+    return cmp.select_prev_item()
   else
-    return "<C-h>"
+    return "<S-Tab>"
   end
 end, { expr = true, silent = true })

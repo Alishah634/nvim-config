@@ -1,7 +1,7 @@
 -- ~/.config/nvim/lua/plugins/user.lua
 return {
   -- ─── Themes ──────────────────────────────────────────────────────────────
-  { "folke/tokyonight.nvim" },
+  --  { "folke/tokyonight.nvim" },
   { "ayu-theme/ayu-vim" },
 
   -- ─── Git & Diff Helpers ───────────────────────────────────────────────────
@@ -91,13 +91,13 @@ return {
 
     -- Formatting/Linting
     { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-    -- Debugging
-    { "mfussenegger/nvim-dap" },
-    { "mfussenegger/nvim-dap-python", dependencies = "nvim-dap" },
-    { "rcarriga/nvim-dap-ui", dependencies = "nvim-dap" },
+
     -- Testing
     { "vim-test/vim-test" },
-    { "nvim-neotest/neotest", dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter" } },
+    -- { "mfussenegger/nvim-dap", enabled = false },
+    -- { "rcarriga/nvim-dap-ui", enabled = false },
+    -- { "mfussenegger/nvim-dap-python", enabled = false },
+    --
 
     config = function()
       local cmp = require("cmp")
@@ -123,7 +123,13 @@ return {
   },
 
   -- optional: Coc.nvim (you probably only want _either_ cmp or coc)
-  { "neoclide/coc.nvim", branch = "release", lazy = true },
+  --  { "neoclide/coc.nvim", branch = "release", lazy = true },
+  {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      require("config.cmp") -- ← Load your custom cmp config
+    end,
+  },
 
   -- ─── Utility Helpers ────────────────────────────────────────────────────────
   { "tpope/vim-sensible", event = "VeryLazy" },
